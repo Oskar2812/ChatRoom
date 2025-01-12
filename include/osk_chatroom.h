@@ -10,10 +10,13 @@
 
 #define PORT 8080
 
+#define USERNAME_SIZE 32
+
 typedef struct {
     struct sockaddr_in clientAddr;
     SOCKET sock;
     char buffer[BUFFER_SIZE];
+    char username[USERNAME_SIZE];
 } Client;
 
 typedef struct {

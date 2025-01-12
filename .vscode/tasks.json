@@ -67,5 +67,29 @@
             "problemMatcher": [],
             "group": "build"
         },
+        {
+            "label": "make",
+            "type": "shell",
+            "command": "make",
+            "group": "build",
+        },
+        {
+            "label": "clean",
+            "type": "shell",
+            "command": "make clean",
+            "group": "build",
+        },
+        {
+            "label": "make client",
+            "type": "shell",
+            "command": "make client",
+            "group": "build",
+        },
+        {
+            "label": "make server",
+            "type": "shell",
+            "command": "make server",
+            "group": "build",
+        }
     ]
 }

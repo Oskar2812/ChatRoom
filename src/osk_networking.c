@@ -128,5 +128,8 @@ int ConnectToServer(Client* client, char* ip, int port, osk_error* error) {
 
     client->sock = s;
 
+    // Sending username
+    send(client->sock, client->username, USERNAME_SIZE, 0);
+
     return OSK_SUCCESS;
 }

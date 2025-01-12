@@ -24,6 +24,10 @@ CLIENT_EXEC = $(BUILD)/ChatRoomClient
 # Default Target
 all: $(SERVER_EXEC) $(CLIENT_EXEC)
 
+client: $(CLIENT_EXEC)
+
+server: $(SERVER_EXEC)
+
 # Build ChatRoomServer
 $(SERVER_EXEC): $(SERVER_SRC)
 	$(CC) $(CFLAGS) -o $@ $^ $(LIBS)
@@ -34,7 +38,7 @@ $(CLIENT_EXEC): $(CLIENT_SRC)
 
 # Clean Up
 clean:
-	rm -f $(SERVER_EXEC) $(CLIENT_EXEC)
+	rm -f $(SERVER_EXEC).exe $(CLIENT_EXEC).exe
 
 # Phony Targets
 .PHONY: all clean

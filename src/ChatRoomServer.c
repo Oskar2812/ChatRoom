@@ -44,13 +44,23 @@ int main() {
                 printf("Client connection failed\n");
                 continue;
             }
+            char tempUsername[USERNAME_SIZE]; 
+            int valread = recv(newSock, tempUsername, USERNAME_SIZE, 0);
+            if (valread == 0) {
+                printf("New client did not send username");
+            }
+            else if (valread < 0) {
+                int error = WSAGetLastError();
+                printf("New client failed to send username with error: %d\n", error);
+            } 
 
-            printf("New connection from: %d\n", (int)newSock);
+            printf("New connection from: %s\n", tempUsername);
 
             for (int ii = 0; ii < MAX_CONNECTIONS; ii++) {
                 if (server.clients[ii].sock == INVALID_SOCKET) {
                     server.clients[ii].sock = newSock;
                     server.clients[ii].clientAddr = tempAddr;
+                    strcpy(server.clients[ii].username, tempUsername);
                     break;
                 }
             }
@@ -61,7 +71,7 @@ int main() {
                 int valread = recv(server.clients[ii].sock, server.buffer, BUFFER_SIZE, 0);
                 if (valread == 0) {
                     FD_CLR(server.clients[ii].sock, &server.readfds);
-                    printf("Client %d, has disconnected\n", (int)server.clients[ii].sock);
+                    printf("%s has disconnected\n", server.clients[ii].username);
                     closesocket(server.clients[ii].sock);
                     server.clients[ii].sock = INVALID_SOCKET;
                     continue;
@@ -69,7 +79,7 @@ int main() {
                 else if (valread > 0) {
                     server.buffer[valread] = '\0';
                     char message[BUFFER_SIZE];
-                    sprintf(message, "[User: %d] ", (int)server.clients[ii].sock);
+                    sprintf(message, "[%s] ", server.clients[ii].username);
                     strcat(message, server.buffer);
                     FD_CLR(server.clients[ii].sock, &server.readfds);
                     for (int jj = 0; jj < MAX_CONNECTIONS; jj++) {
@@ -84,7 +94,7 @@ int main() {
                         continue;
                     }
                     if (error == 10054) {
-                        printf("Client %d, has disconnected\n", (int)server.clients[ii].sock);
+                        printf("%s, has disconnected\n", server.clients[ii].username);
                         FD_CLR(server.clients[ii].sock, &server.readfds);
                         closesocket(server.clients[ii].sock);
                         server.clients[ii].sock = INVALID_SOCKET;

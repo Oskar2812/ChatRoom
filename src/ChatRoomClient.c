@@ -12,6 +12,12 @@ int main() {
     Client client;
     osk_error error;
 
+    char usernameBuffer[USERNAME_SIZE];
+    printf("Please enter your username: ");
+    fgets(usernameBuffer, sizeof(usernameBuffer), stdin);
+    usernameBuffer[strcspn(usernameBuffer, "\n")] = 0;
+    strcpy(client.username, usernameBuffer);
+
     if (ConnectToServer(&client, IP_ADDRESS, PORT, &error) != OSK_SUCCESS) {
         printf("%s%d\n", error.message, error.code);
         return 1;
