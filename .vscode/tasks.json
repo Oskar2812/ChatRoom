@@ -1,0 +1,71 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build server",
+            "type": "shell",
+            "command": "gcc",
+            "args": [
+                "src/ChatRoomServer.c",
+                "src/osk_networking.c",
+                "-o",
+                "build/ChatRoomServer",
+                "-Wall",
+                "-Werror",
+                "-lws2_32"
+            ],
+            "problemMatcher": [],
+            "group": "build"
+        },
+        {
+            "label": "debug server",
+            "type": "shell",
+            "command": "gcc",
+            "args": [
+                "-g",
+                "src/ChatRoomServer.c",
+                "src/osk_networking.c",
+                "-o",
+                "build/ChatRoomServer",
+                "-Wall",
+                "-Werror",
+                "-lws2_32"
+            ],
+            "problemMatcher": [],
+            "group": "build"
+        },
+        {
+            "label": "build client",
+            "type": "shell",
+            "command": "gcc",
+            "args": [
+                "src/ChatRoomClient.c",
+                "src/osk_networking.c",
+                "-o",
+                "build/ChatRoomClient",
+                "-Wall",
+                "-Werror",
+                "-lws2_32"
+            ],
+            "problemMatcher": [],
+            "group": "build"
+        },
+        {
+            "label": "debug client",
+            "type": "shell",
+            "command": "gcc",
+            "args": [
+                "-g",
+                "src/ChatRoomClient.c",
+                "src/osk_networking.c",
+                "-o",
+                "build/ChatRoomClient",
+                "-Wall",
+                "-Werror",
+                "-lws2_32"
+            ],
+            "problemMatcher": [],
+            "group": "build"
+        },
+    ]
+}
